@@ -10,7 +10,7 @@ class MainSelect extends Component {
     }
   }
   componentDidMount = () =>{
-    axios.get('http://laboratorioasesores.com/NewSIIL/Mantenimiento/Development/PNC/getPuesto.php')
+    axios.get('https://laboratorioasesores.com/NewSIIL/Mantenimiento/Development/PNC/getPuesto.php')
       .then(res => {
           // console.log(res.data);
           this.setState({positionOption: res.data}); 
