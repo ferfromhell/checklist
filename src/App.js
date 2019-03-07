@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Segment, Dimmer, Loader } from 'semantic-ui-react';
+// import { Input, Menu, Segment } from 'semantic-ui-react'
+// import logo from './logo.svg';
 import './App.css';
 
+import Tabs from './components/Tabs';
+import MainSelect from './components/MainSelect';
+
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { 
+      isLoading: true,
+      activeItem: 'bio' 
+    }
+  }
+
+  componentDidMount() {
+      this.setState({isLoading: false})
+  }
+
+  //handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  
   render() {
+    const Loading =(
+      <Segment>
+        <Dimmer active>
+          <Loader size='massive'>Loading</Loader>
+        </Dimmer>
+      </Segment>
+    );
+    const Content = (
+      <Segment>
+          <MainSelect/>
+          <Tabs/>
+        </Segment>
+    )
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {this.state.isLoading ? Loading:Content}
       </div>
     );
   }
