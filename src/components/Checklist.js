@@ -21,7 +21,7 @@ class Checklist extends Component {
     }
   }
   componentDidMount = () =>{
-    axios.get('https://laboratorioasesores.com/NewSIIL/Mantenimiento/Development/PNC/clItems2.php')
+    axios.get('http://laboratorioasesores.com/NewSIIL/Mantenimiento/Development/PNC/clItems2.php')
       .then(res => {
           console.log(res.data);
           this.setState({categoryOptions: res.data}); 
@@ -117,12 +117,26 @@ class Checklist extends Component {
             <Table.Body>
             {rows.map((r) => {
                 if(r.type === "category"){
-                  return (
-                    <Table.Row>
-                      <Table.HeaderCell colSpan='5'>{r.category}</Table.HeaderCell>
-                      <Table.HeaderCell colSpan='1'><Icon name="delete"/></Table.HeaderCell>
-                    </Table.Row>
-                  )
+                  if(r.category === "OTRAS"){
+                    return (
+                      <Table.Row>
+                        <Table.HeaderCell colSpan='5'>
+                        <Input 
+                          defaultValue={r.category}
+                          style={{width:"90%",padding: "1px"}}
+                        />
+                        </Table.HeaderCell>
+                        <Table.HeaderCell colSpan='1'><Icon name="delete"/></Table.HeaderCell>
+                      </Table.Row>
+                    )
+                  }else{
+                    return (
+                      <Table.Row>
+                        <Table.HeaderCell colSpan='5'>{r.category}</Table.HeaderCell>
+                        <Table.HeaderCell colSpan='1'><Icon name="delete"/></Table.HeaderCell>
+                      </Table.Row>
+                    )
+                  }
                 }else{
                   return (
                     <Table.Row>
@@ -132,7 +146,7 @@ class Checklist extends Component {
                         <Table.Cell colSpan='2'>
                           {r.resp}
                         </Table.Cell>
-                        <Table.Cell colSpan='1'>
+                        <Table.Cell colSpan='3'>
                           <Icon name="delete"/>
                         </Table.Cell>
                     </Table.Row>
