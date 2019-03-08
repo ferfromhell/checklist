@@ -21,7 +21,7 @@ class Checklist extends Component {
     }
   }
   componentDidMount = () =>{
-    axios.get('http://laboratorioasesores.com/NewSIIL/Mantenimiento/Development/PNC/clItems2.php')
+    axios.get('https://laboratorioasesores.com/NewSIIL/Mantenimiento/Development/PNC/clItems2.php')
       .then(res => {
           console.log(res.data);
           this.setState({categoryOptions: res.data}); 
