@@ -13,10 +13,10 @@ class Checklist extends Component {
       rows: [],
       categoryOptions: [],
       responseOptions: [
-        {key:"CN",value:"CN",text:"CN"},
+        {key:"CCN",value:"CCN",text:"C/CN"},
         {key:"Numero",value:"Numero",text:"Numero"},
-        {key:"Date",value:"Date",text:"Date"},
-        {key:"Text",value:"Text",text:"Text"},
+        {key:"Date",value:"Date",text:"Fecha"},
+        {key:"Text",value:"Text",text:"Texto"},
       ]
     }
   }
@@ -90,7 +90,7 @@ class Checklist extends Component {
                   inverted 
                   color="green" 
                   onClick={this.addRow}
-                > Add category</Button>
+                >Agregar categoria</Button>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -100,28 +100,28 @@ class Checklist extends Component {
                   placeholder='Activity...' 
                   onChange={this.onChange}/>
               </Grid.Column>
-              <Grid.Column>
+              {/* <Grid.Column>
               <Dropdown 
                 placeholder='Select type of response' 
                 selection 
                 options={this.state.responseOptions}
                 onChange={this.onChangeResponse} 
                 />
-              </Grid.Column>
+              </Grid.Column> */}
               <Grid.Column width={3}>
                 <Button 
                   name="activity"
                   inverted 
                   color="green" 
                   onClick={this.addRow}
-                > Add activity</Button>
+                >Agregar activiad</Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Segment>
         <Segment raised>
           <Header as='h2' dividing>
-            Checklist position
+            Checklist de puesto
           </Header>
           <Table celled striped fixed color="blue">
             <Table.Body>
