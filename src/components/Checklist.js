@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Segment, Grid, Button, Input, Dropdown, Header, Table, Icon } from 'semantic-ui-react';
+import { Segment, Grid, Button, Input, Dropdown, Header, Table } from 'semantic-ui-react';
 
 class Checklist extends Component {
   constructor(){
@@ -55,8 +55,18 @@ class Checklist extends Component {
     //   </Table.Row>
     // )
   }
-  deleteRow = (e) => {
-
+  deleteRow = (i) => {
+    var rows = this.state.rows;
+    //console.log(rows);
+    rows.splice(i, 1);
+    this.setState({rows});
+  }
+  addExtraRow = (i) => {
+    var rows = this.state.rows;
+    //console.log(rows);
+    rows.splice( i, 0, {act: 'New activity added', resp: '' ,type:''} );
+    console.log(rows);
+    this.setState({rows});
   }
   render() { 
     const {rows} = this.state
@@ -115,39 +125,59 @@ class Checklist extends Component {
           </Header>
           <Table celled striped fixed color="blue">
             <Table.Body>
-            {rows.map((r) => {
+            {rows.map((r,index) => {
                 if(r.type === "category"){
                   if(r.category === "OTRAS"){
                     return (
-                      <Table.Row>
-                        <Table.HeaderCell colSpan='5'>
+                      <Table.Row key={index}>
+                        <Table.HeaderCell colSpan='12'>
                         <Input 
                           defaultValue={r.category}
                           style={{width:"90%",padding: "1px"}}
                         />
                         </Table.HeaderCell>
-                        <Table.HeaderCell colSpan='1'><Icon name="delete"/></Table.HeaderCell>
+                        <Table.HeaderCell colSpan='4'>
+                          <Button icon='delete' 
+                          onClick={this.deleteRow.bind(this, index)}/>
+                        </Table.HeaderCell>
                       </Table.Row>
                     )
                   }else{
                     return (
-                      <Table.Row>
-                        <Table.HeaderCell colSpan='5'>{r.category}</Table.HeaderCell>
-                        <Table.HeaderCell colSpan='1'><Icon name="delete"/></Table.HeaderCell>
+                      <Table.Row key={index}>
+                        <Table.HeaderCell colSpan='12'>{r.category}</Table.HeaderCell>
+                        <Table.HeaderCell colSpan='4'>
+                          <Button icon='delete' 
+                          onClick={this.deleteRow.bind(this, index)}/>
+                        </Table.HeaderCell>
                       </Table.Row>
                     )
                   }
                 }else{
                   return (
-                    <Table.Row>
-                        <Table.Cell colSpan='3'>
-                          {r.act}
+                    <Table.Row key={index}>
+                        <Table.Cell colSpan='5'>
+                          <Input 
+                            defaultValue={r.act}
+                            style={{width:"90%",padding: "1px"}}
+                          />
                         </Table.Cell>
-                        <Table.Cell colSpan='2'>
-                          {r.resp}
+                        <Table.Cell colSpan='5'>
+                        <Dropdown 
+                          selected={r.resp}
+                          selection 
+                          options={this.state.responseOptions}
+                          onChange={this.onChangeResponse} 
+                          />
+                          
                         </Table.Cell>
                         <Table.Cell colSpan='3'>
-                          <Icon name="delete"/>
+                        <Button icon='delete' 
+                          onClick={this.deleteRow.bind(this, index)}/>
+                        </Table.Cell>
+                        <Table.Cell colSpan='3'>
+                        <Button icon='add' 
+                          onClick={this.addExtraRow.bind(this, index)}/>
                         </Table.Cell>
                     </Table.Row>
                   )
